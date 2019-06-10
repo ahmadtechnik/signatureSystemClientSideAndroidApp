@@ -15,8 +15,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    String TAG = "LOGGGG";
+
 private  WebView myWebView ;
 private WebSettings ws;
 private WebViewClient wc;
@@ -24,27 +30,22 @@ private WebViewClient wc;
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
 
+
+        /**
+         * set the main layout as main home page to android
+         * **/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.activity_main);
-        myWebView = findViewById(R.id.mainWebView);
-        ws = myWebView.getSettings();
 
-        ws.setJavaScriptEnabled(true);
 
-        wc = new WebViewClient();
 
-        myWebView.setWebViewClient(new sslHandler());
 
-        if(myWebView != null )
-        myWebView.loadUrl("https://192.168.178.32:3000/client_side_home");
 
 
     }
@@ -85,4 +86,29 @@ private WebViewClient wc;
 
         return result;
     }
+
+    @Override
+    protected void onStart() {
+        // check if device connected to wifi
+        networking nt = new networking(this);
+        if(!nt.isWifiConnected()){
+            nt.ShowConnectActivity();
+        }else{
+            WebView myWebView ;
+            WebSettings ws;
+            WebViewClient wc;
+            // to reloade the URL to webview
+            myWebView = findViewById(R.id.mainWebView);
+            ws = myWebView.getSettings();
+            wc = new WebViewClient();
+            ws.setJavaScriptEnabled(true);
+            myWebView.setWebViewClient(new sslHandler());
+            myWebView.loadUrl("https://192.168.178.32:3000/client_side_home");
+
+        }
+
+        super.onStart();
+    }
 }
+
+
