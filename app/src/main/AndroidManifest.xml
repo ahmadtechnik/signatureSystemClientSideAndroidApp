@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -17,13 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".PleaseEnableWifi"></activity>
+        <activity android:name=".PleaseConnectToWifi" />
+
         <receiver android:name=".wifiStatListener">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".connectToWifi"></activity>
+        <activity android:name=".connectToWifi" />
         <activity android:name=".serverDataForm" />
         <activity
             android:name=".MainActivity"
@@ -41,7 +45,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

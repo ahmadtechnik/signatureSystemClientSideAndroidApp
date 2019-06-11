@@ -5,20 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
-public class wifiStatListener  extends BroadcastReceiver {
+public class wifiStatListener extends BroadcastReceiver {
+
+
+    public static String get_connectionStatus() {
+        return __CONNECTION_STATUS;
+    }
+
+    private static String __CONNECTION_STATUS;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.i("LOGGGG" , "FROM CLASS ");
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMan.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI)
-            Log.i("LOGGGG", "Have Wifi Connection");
-        else
-            Log.i("LOGGGG", "Don't have Wifi Connection");
+        if (netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            __CONNECTION_STATUS = "CONNECTED";
+
+        } else {
+            __CONNECTION_STATUS = "DECONNECTED";
+
+        }
 
     }
 
