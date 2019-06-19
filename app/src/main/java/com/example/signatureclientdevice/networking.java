@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class networking {
 
@@ -13,6 +14,7 @@ public class networking {
     private Context mc;
     private WifiManager wm;
 
+    public final String TAG  = "NetworkingLog";
 
     public networking(Context mc) {
         this.mc = mc;
@@ -25,7 +27,7 @@ public class networking {
         if (ni.isConnected()) {
             /** in case was not connected i have to show the wifi data getter **/
 
-            Log.i("LOGGGG", "Connected....");
+            Log.i(TAG, "Connected....");
             return true;
         }
         /****/
@@ -35,10 +37,12 @@ public class networking {
 
     public void ShowConnectActivity() {
         Intent intent = new Intent(mc, connectToWifi.class);
+
         mc.startActivity(intent);
     }
 
     public void showMainActivity() {
+        Toast.makeText(mc , "showMainActivity" , Toast.LENGTH_LONG).show();
         Intent intent = new Intent(mc, MainActivity.class);
         mc.startActivity(intent);
     }
@@ -46,8 +50,11 @@ public class networking {
     public boolean isWifiEnabled() {
         wm = (WifiManager) mc.getSystemService(mc.WIFI_SERVICE);
         if (wm.isWifiEnabled()) {
+            Toast.makeText(mc , "isWifiEnabled True" , Toast.LENGTH_LONG).show();
             return true;
         }
+        Toast.makeText(mc , "isWifiEnabled False" , Toast.LENGTH_LONG).show();
+
         return false;
     }
 

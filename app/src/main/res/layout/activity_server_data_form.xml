@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
@@ -10,15 +11,15 @@
     <EditText
         android:id="@+id/editText2"
         android:layout_width="321dp"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Please Enter Server side Data"
         android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +28,7 @@
     <LinearLayout
         android:id="@+id/formContainer"
         android:layout_width="395dp"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -42,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText2">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/serverProtocolEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -50,7 +51,7 @@
             android:text="Server Protocol" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/serverHostnameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -58,7 +59,7 @@
             android:text="Server-Hostname" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/serverPortEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -66,11 +67,13 @@
             android:text="Server-Port-Number" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/serverSubEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Server-Sub-Dir-Path" />
+
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -14,11 +14,12 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    String TAG = "LOGGGG";
+    String TAG = "MainActivityLog";
 
     private WebView myWebView;
     private WebSettings ws;
@@ -29,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
     private Fragment pleaseEnableWifiFragment;
     private ConstraintLayout constraintLayout;
 
+    private ConstraintLayout getServerDataFragmentContainer;
+
     private final String URL = "https://192.168.178.32:3000/client_side_home";
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-
 
         /**
          * set the main layout as main home page to android
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
          * **/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 
         // set activity as main activity
         setContentView(R.layout.activity_main);
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     // to disable Key down
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("LOGGGG", String.valueOf(event.getKeyCode()));
+
         return false;
     }
 
@@ -93,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         /**
          * actions on steps
          * - check if wifi connected
@@ -104,8 +109,15 @@ public class MainActivity extends AppCompatActivity {
         if (nw.isWifiEnabled()) {
 
             // if wifi is connected
+            // try to get the server data
+            // from json static file
             if (nw.isWifiConnected()) {
+                myWebView = (WebView) findViewById(R.id.mainWebView);
+                myWebView.setWebViewClient(new WebViewClientControler(this));
+                ws = myWebView.getSettings();
+                ws.setJavaScriptEnabled(true);
 
+                myWebView.loadUrl(new fileHandling(this).JSONobjectToURL());
             }
             // in case wifi was not connected
             else {
@@ -119,6 +131,18 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    @Override
+    protected void onStop() {
+        Toast.makeText(getApplicationContext() , "isWifiEnabled True" , Toast.LENGTH_LONG).show();
+        Log.i(TAG, "From on activity stop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG, "From on main activity resume..");
+        super.onResume();
+    }
 }
 
 

@@ -89,7 +89,7 @@ public class PleaseEnableWifi extends AppCompatActivity {
                 }
                 // in case wifi was not enabled
                 else {
-                    nw.showPleaseEnableWifiLayout();
+
                 }
             }
         });

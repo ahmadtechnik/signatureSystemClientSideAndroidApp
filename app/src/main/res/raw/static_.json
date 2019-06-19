@@ -1,0 +1,8 @@
+{
+  "serverData": {
+    "PROTOCOL": "https",
+    "HOSTNAME": "192.168.178.32",
+    "PORT": "3000",
+    "SUBDIR": "client_side_home"
+  }
+}
