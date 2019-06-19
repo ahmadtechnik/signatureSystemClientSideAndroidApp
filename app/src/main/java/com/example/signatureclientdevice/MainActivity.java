@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
 
     private ConstraintLayout getServerDataFragmentContainer;
+
+    SharedPreferences sp ;
 
     private final String URL = "https://192.168.178.32:3000/client_side_home";
 
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
 
+
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         /**
@@ -117,7 +122,22 @@ public class MainActivity extends AppCompatActivity {
                 ws = myWebView.getSettings();
                 ws.setJavaScriptEnabled(true);
 
-                myWebView.loadUrl(new fileHandling(this).JSONobjectToURL());
+                /**
+                 * check if data of the server are stored in shared prefs.
+                 * **/
+                sp = getApplicationContext().getSharedPreferences("ServerData" , MODE_PRIVATE);
+                SharedPreferences.Editor ed = sp.edit();
+
+                String serverURL = sp.getString("serverURL" , "");
+                Log.i(TAG ,"GETED : " +  serverURL );
+                if(serverURL != ""){
+                    Log.i(TAG ,"STORED...." );
+                    myWebView.loadUrl(serverURL);
+                }else{
+                    myWebView.loadUrl("localhost:3000");
+                    Log.i(TAG ,"NOT STORED YET...." );
+                }
+
             }
             // in case wifi was not connected
             else {
@@ -133,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+
+
+
         Toast.makeText(getApplicationContext() , "isWifiEnabled True" , Toast.LENGTH_LONG).show();
         Log.i(TAG, "From on activity stop");
         super.onStop();
@@ -141,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.i(TAG, "From on main activity resume..");
+
+
+
         super.onResume();
     }
 }

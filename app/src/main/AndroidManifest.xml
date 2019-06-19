@@ -48,19 +48,6 @@
         </activity>
 
         <!-- server data form activity -->
-        <activity
-            android:name=".serverDataForm"
-            android:clearTaskOnLaunch="true"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            android:stateNotNeeded="true">
-            <intent-filter>
-
-                <category android:name="android.intent.category.HOME" />
-
-            </intent-filter>
-        </activity>
         <!-- MAin Activity  -->
         <activity
             android:name=".MainActivity"

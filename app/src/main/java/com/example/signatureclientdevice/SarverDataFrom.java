@@ -1,8 +1,10 @@
 package com.example.signatureclientdevice;
 
 
-import android.app.Activity;
+
 import android.content.Context;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +22,8 @@ public class SarverDataFrom extends Fragment {
     Button submitBtn;
     static View mainView;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
@@ -32,9 +36,7 @@ public class SarverDataFrom extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Log.i(TAG, "onViewCreated");
         submitBtn = (Button) getView().findViewById(R.id.submitDataBtn);
-
         mainView = getView();
-
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +56,17 @@ public class SarverDataFrom extends Fragment {
                     String serverSubString = serverSub.getText().toString();
 
                     Log.i(TAG, serverProtocolString + "://" + serverHostnameString + ":" + serverPortString + "/" + serverSubString);
+                    String serverURL  = serverProtocolString + "://" + serverHostnameString + ":" + serverPortString + "/" + serverSubString;
 
-                    wv.loadUrl(serverProtocolString + "://" + serverHostnameString + ":" + serverPortString + "/" + serverSubString);
+                    SharedPreferences sp = mainView.getContext().getSharedPreferences("ServerData" , Context.MODE_PRIVATE);
+
+                    SharedPreferences.Editor ed = sp.edit();
+                    ed.putString("serverURL" , serverURL.toLowerCase());
+                    
+                    ed.apply(); Log.i(TAG ,  "NEW SERVER URL ADDED : " + serverURL.toLowerCase());
+
+                    wv.loadUrl(serverURL);
+
                     wv.setWebViewClient(new WebViewClientControler(getActivity()));
 
                     getActivity().findViewById(R.id.getServerDataFragmentContainer).setVisibility(View.INVISIBLE);
@@ -71,7 +82,6 @@ public class SarverDataFrom extends Fragment {
     @Override
     public void onAttach(Context context) {
         Log.i(TAG, "onAttach");
-
         super.onAttach(context);
     }
 
